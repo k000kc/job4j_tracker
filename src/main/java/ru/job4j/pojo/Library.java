@@ -25,7 +25,7 @@ public class Library {
         }
         System.out.println("Поиск книги Clean Code");
         for (Book book : books) {
-            if (book.getName().equals("Clean Code")) {
+            if ("Clean Code".equals(book.getName())) {
                 System.out.println("В книге: " + book.getName()
                         + " - " + book.getCount() + "стр.");
                 break;
