@@ -11,11 +11,12 @@ class StartUITest {
                 new String[] {"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
+        Output output = new StubOutput();
         UserAction[] actions = {
-                new CreateAction(),
-                new ExitProgram()
+                new CreateAction(output),
+                new ExitProgram(output)
         };
-        new StartUI().init(in, tracker, actions);
+        new StartUI(output).init(in, tracker, actions);
         assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
     }
 
@@ -28,11 +29,12 @@ class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", id, replaceName, "1"}
         );
+        Output output = new StubOutput();
         UserAction[] actions = {
-                new ReplaceItem(),
-                new ExitProgram()
+                new ReplaceItem(output),
+                new ExitProgram(output)
         };
-        new StartUI().init(in, tracker, actions);
+        new StartUI(output).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replaceName);
     }
 
@@ -44,11 +46,29 @@ class StartUITest {
         Input input = new StubInput(
                 new String[]{"0", id, "1"}
         );
+        Output output = new StubOutput();
         UserAction[] actions = {
-                new DeleteItem(),
-                new ExitProgram()
+                new DeleteItem(output),
+                new ExitProgram(output)
         };
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
+    }
+
+    @Test
+    public void whenExit() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[]{"0"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {
+                new ExitProgram(out)
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(out.toString()).isEqualTo(
+                "Menu:" + System.lineSeparator()
+                + "0. Exit Program" + System.lineSeparator()
+        );
     }
 }
