@@ -15,4 +15,12 @@ class CountTest {
         assertThat(exception.getMessage()).isEqualTo("Start should be less than finish.");
     }
 
+    @Test
+    public void whenSumFrom2To10Then44() {
+        int start = 2;
+        int finish = 10;
+        int result = Count.add(start, finish);
+        int expected = 44;
+        assertThat(result).isEqualTo(expected);
+    }
 }
