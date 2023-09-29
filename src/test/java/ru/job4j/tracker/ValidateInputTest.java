@@ -3,7 +3,6 @@ package ru.job4j.tracker;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ValidateInputTest {
     @Test
@@ -38,6 +37,4 @@ class ValidateInputTest {
         int selected = input.askInt("Enter menu");
         assertThat(selected).isEqualTo(-1);
     }
-
-
 }
