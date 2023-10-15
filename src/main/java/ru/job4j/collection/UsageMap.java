@@ -8,6 +8,7 @@ public class UsageMap {
         map.put("Ivan@mail.ru", "Ivanov Ivan");
         map.put("Petr@mail.ru", "Petr Petrov");
         map.put("test@mail.ru", "Test Testov");
+        map.put("test@mail.ru", "Update Updateov");
         for (String email : map.keySet()) {
             System.out.printf("%s - %s%n", email, map.get(email));
         }
