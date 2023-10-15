@@ -18,7 +18,7 @@ public class ReconstructPhrase {
             if (i % 2 == 0) {
                 builder.append(evenElements.peek());
             }
-            evenElements.pop();
+            evenElements.poll();
         }
         return builder.toString();
     }
