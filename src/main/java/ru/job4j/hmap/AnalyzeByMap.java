@@ -49,16 +49,20 @@ public class AnalyzeByMap {
     }
 
     public static Label bestStudent(List<Pupil> pupils) {
-        Queue<Label> labels = new LinkedList<>();
         double sum;
+        double max = 0D;
+        String name = null;
         for (Pupil pupil : pupils) {
             sum = 0D;
             for (Subject subject : pupil.subjects()) {
                 sum += subject.score();
             }
-            labels.add(new Label(pupil.name(), sum));
+            if (sum > max) {
+                max = sum;
+                name = pupil.name();
+            }
         }
-        return labels.peek();
+        return new Label(name, max);
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
@@ -69,10 +73,14 @@ public class AnalyzeByMap {
                         + map.getOrDefault(subject.name(), 0));
             }
         }
-        Queue<Label> labels = new LinkedList<>();
+        int max = 0;
+        String name = null;
         for (Map.Entry<String, Integer> sd : map.entrySet()) {
-            labels.add(new Label(sd.getKey(), (double) sd.getValue()));
+            if (sd.getValue() > max) {
+                max = sd.getValue();
+                name = sd.getKey();
+            }
         }
-        return labels.peek();
+        return new Label(name, max);
     }
 }
