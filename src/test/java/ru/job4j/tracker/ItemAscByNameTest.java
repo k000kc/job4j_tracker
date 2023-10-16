@@ -21,7 +21,7 @@ class ItemAscByNameTest {
         items.add(b);
         Collections.sort(items, new ItemAscByName());
         List<Item> expected = Arrays.asList(a, b, c);
-        assertThat(items).containsAll(expected);
+        assertThat(items).isEqualTo(expected);
     }
 
 }
