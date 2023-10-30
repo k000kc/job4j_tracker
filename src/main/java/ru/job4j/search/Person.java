@@ -6,11 +6,11 @@ public class Person {
     private String phone;
     private String addrwss;
 
-    public Person(String name, String surname, String phone, String addrwss) {
+    public Person(String name, String surname, String phone, String addrss) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
-        this.addrwss = addrwss;
+        this.addrwss = addrss;
     }
 
     public String getName() {
