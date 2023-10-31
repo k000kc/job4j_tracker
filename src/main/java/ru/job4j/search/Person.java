@@ -4,13 +4,13 @@ public class Person {
     private String name;
     private String surname;
     private String phone;
-    private String addrwss;
+    private String addrss;
 
     public Person(String name, String surname, String phone, String addrss) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
-        this.addrwss = addrss;
+        this.addrss = addrss;
     }
 
     public String getName() {
@@ -25,7 +25,7 @@ public class Person {
         return phone;
     }
 
-    public String getAddrwss() {
-        return addrwss;
+    public String getAddrss() {
+        return addrss;
     }
 }
