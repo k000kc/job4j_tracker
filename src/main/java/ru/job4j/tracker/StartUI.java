@@ -7,7 +7,6 @@ import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.output.ConsoleOutput;
 import ru.job4j.tracker.output.Output;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class StartUI {
@@ -17,7 +16,7 @@ public class StartUI {
         this.out = out;
     }
 
-    public void init(Input input, Tracker tracker, List<UserAction> actions) {
+    public void init(Input input, Store tracker, List<UserAction> actions) {
         boolean run = true;
         while (run) {
             showMenu(actions);
@@ -41,16 +40,25 @@ public class StartUI {
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput());
-        Tracker tracker = new Tracker();
-        UserAction[] actions = {
+//        Store tracker = new MemTracker();
+//        UserAction[] actions = {
+//                new CreateAction(output),
+//                new ShowItems(output),
+//                new ReplaceItem(output),
+//                new DeleteItem(output),
+//                new FindById(output),
+//                new FindByName(output),
+//                new ExitProgram(output)
+//        };
+        Store tracker = new SqlTracker();
+        List<UserAction> actions = List.of(
                 new CreateAction(output),
                 new ShowItems(output),
                 new ReplaceItem(output),
                 new DeleteItem(output),
                 new FindById(output),
                 new FindByName(output),
-                new ExitProgram(output)
-        };
-        new StartUI(output).init(input, tracker, Arrays.asList(actions));
+                new ExitProgram(output));
+        new StartUI(output).init(input, tracker, actions);
     }
 }
