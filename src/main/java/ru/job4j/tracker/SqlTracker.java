@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -88,10 +89,7 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                     items.add(new Item(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name")
-                    ));
+                     items.add(createItem(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -107,10 +105,7 @@ public class SqlTracker implements Store {
             statement.setString(1, key);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    items.add(new Item(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name")
-                    ));
+                    items.add(createItem(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -121,20 +116,28 @@ public class SqlTracker implements Store {
 
     @Override
     public Item findById(int id) {
-        var result = new Item();
+        Item result = null;
         try (PreparedStatement statement = connection.prepareStatement(
                 "SELECT * FROM items WHERE id = ?"
         )) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    result.setId(resultSet.getInt("id"));
-                    result.setName(resultSet.getString("name"));
+                    result = createItem(resultSet);
                 }
             }
         } catch (SQLException e) {
             throw new IllegalStateException("Error find it items by id", e);
         }
+        return result;
+    }
+
+    private Item createItem(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        String name = resultSet.getString("name");
+        LocalDateTime created = resultSet.getTimestamp("created").toLocalDateTime();
+        var result = new Item(id, name);
+        result.setCreated(created);
         return result;
     }
 
