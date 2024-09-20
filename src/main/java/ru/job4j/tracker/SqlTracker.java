@@ -136,8 +136,7 @@ public class SqlTracker implements Store {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         LocalDateTime created = resultSet.getTimestamp("created").toLocalDateTime();
-        var result = new Item(id, name);
-        result.setCreated(created);
+        var result = new Item(id, name, created);
         return result;
     }
 
